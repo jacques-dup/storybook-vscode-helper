@@ -108,7 +108,7 @@ import { ${component.displayName} } from './${importName}';
 export default {
   title: '\${1:Components}/\${2:${component.displayName}}',
   component: ${component.displayName},
-  tags: ['autodocs],
+  tags: ['autodocs'],
   args: {
 ${args.map((a) => `    ${a}`).join(",\n")}
   },

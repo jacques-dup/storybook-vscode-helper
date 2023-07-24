@@ -2,7 +2,7 @@
 	"name": "storybook-helper-forked",
 	"displayName": "Storybook helper (Forked)",
 	"description": "Forked from abandoned plugin by riccardoforina. Quickly create Storybook's stories for your React components",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"publisher": "jacqures-dup",
 	"engines": {
 		"vscode": "^1.60.0"

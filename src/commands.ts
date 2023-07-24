@@ -36,11 +36,10 @@ function typeValue(
 
 function propItemToStoryArg(key: string, idx: number, info: PropItem): string {
   const placeholder = typeValue(info.type, info.defaultValue);
-  return `${key}: \${${idx + 3}${
-    Array.isArray(placeholder)
+  return `${key}: \${${idx + 3}${Array.isArray(placeholder)
       ? `|${placeholder.join(",")}|`
       : `:${placeholder}`
-  }}`;
+    }}`;
 }
 
 export async function createStory(componentUri: vscode.Uri) {
@@ -53,10 +52,10 @@ export async function createStory(componentUri: vscode.Uri) {
   (await isJs)
     ? createStoryFromJs(storyUri)
     : createStoryFromTs(
-        componentUri.fsPath,
-        storyUri,
-        path.parse(basename).name
-      );
+      componentUri.fsPath,
+      storyUri,
+      path.parse(basename).name
+    );
 }
 
 export async function createStoryFromJs(storyUri: vscode.Uri) {
@@ -101,7 +100,7 @@ export async function createStoryFromTs(
     (args, [key, info], idx) => [...args, propItemToStoryArg(key, idx, info)],
     []
   );
-  const tmpl = `import { ComponentStory, ComponentMeta } from '@storybook/react';
+  const tmpl = `import { StoryFn, Meta } from '@storybook/react';
 import React from 'react';
 
 import { ${component.displayName} } from './${importName}';
@@ -109,12 +108,13 @@ import { ${component.displayName} } from './${importName}';
 export default {
   title: '\${1:Components}/\${2:${component.displayName}}',
   component: ${component.displayName},
+  tags: ['autodocs],
   args: {
 ${args.map((a) => `    ${a}`).join(",\n")}
   },
-} as ComponentMeta<typeof ${component.displayName}>;
+} as Meta<typeof ${component.displayName}>;
 
-const Template: ComponentStory<typeof ${component.displayName}> = (args) => (
+const Template: StoryFn<typeof ${component.displayName}> = (args) => (
   <${component.displayName} {...args} />
 );
 
